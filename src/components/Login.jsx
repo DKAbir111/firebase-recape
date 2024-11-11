@@ -1,11 +1,23 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "./Context/Context";
 
 export default function Login() {
+
+    const { signInUser } = useContext(AuthContext);
     const handleLogin = (event) => {
         event.preventDefault();
         const email = event.target.email.value;
         const password = event.target.password.value;
         console.log(email, password);
+        signInUser(email, password)
+            .then(result => {
+                console.log(result.user)
+            })
+            .catch(error => {
+                console.error('ERROR', error.message)
+                // Handle error here, for example, show an error message to the user.
+            })
     }
     return (
 
